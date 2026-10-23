@@ -54,11 +54,10 @@ jobs:
     steps:
       - name: Récupérer le code du dépôt
         uses: actions/checkout@v4
-        
+
       - name: construire l'image Docker
         run: |
           docker build -t atelier-flask .
-          docker run -p 4000:4000 atelier-flask
           docker save atelier-flask -o image.tar
 
       - name: Transmettre l'image au job 3
