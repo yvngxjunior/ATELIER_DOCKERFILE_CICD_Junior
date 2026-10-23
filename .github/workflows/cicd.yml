@@ -22,13 +22,18 @@ jobs:
   Tests:
     runs-on: ubuntu-latest
     steps:
-      - name: A compléter
-        run: |
-          action actions/checkout@v4
-          action actions/setup-python@v5
-          pip install -r requirements.txt pytest
-          pytest -v tests/
+      - name: Récupérer le code du dépôt
+        uses: actions/checkout@v4
 
+      - name: Installer Python 3.12
+        uses: actions/setup-python@v5
+
+      - name: Installer les dépendances
+        run: |
+          pip install -r requirements.txt pytest
+
+      - name: Lancer les tests
+        run: pytest -v tests/
   # ---------------------------------------------------------------
   # JOB 2 - Livraison continue : construire l'image Docker
   # ---------------------------------------------------------------
@@ -47,12 +52,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: Tests
     steps:
-      - name: A compléter
+      - name: construire l'image Docker
         run: |
           docker build -t atelier-flask .
           docker run -p 4000:4000 atelier-flask
           docker save atelier-flask -o image.tar
-          action actions/upload-artifact@v4
+
+      - name: Transmettre l'image au job 3
+        uses: actions/upload-artifact@v4
 
 
   # ---------------------------------------------------------------
