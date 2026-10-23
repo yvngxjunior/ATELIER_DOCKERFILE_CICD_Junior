@@ -62,8 +62,9 @@ jobs:
 
       - name: Transmettre l'image au job 3
         uses: actions/upload-artifact@v4
-          with:
-            path: image.tar
+        with:
+          name: image.tar
+          path: image.tar
 
 
   # ---------------------------------------------------------------
