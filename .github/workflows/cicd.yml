@@ -85,9 +85,14 @@ jobs:
     needs: Docker
     environment: production
     steps:
-      - name: A compléter
+      - name: Récupérer l'image du job 2
+        uses: actions/download-artifact@v4
+        with:
+          name: image.tar
+          path: image.tar
+
+      - name: Démarrer le conteneur et vérifier l'application
         run: |
-          action actions/download-artifact@v4
           docker load -i image.tar
           docker run -p 4000:4000 atelier-flask
           curl http://localhost:4000/
