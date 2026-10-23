@@ -87,9 +87,7 @@ jobs:
     steps:
       - name: Récupérer l'image du job 2
         uses: actions/download-artifact@v4
-        with:
-          path: image.tar
-
+        
       - name: Démarrer le conteneur et vérifier l'application
         run: |
           docker load -i image.tar
